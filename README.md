@@ -19,7 +19,7 @@ I built and deployed three full-stack features on ChatBLK, BlackRock's conversat
 
 **SoftCom Lab, Cal Poly Pomona.** Research intern, March 2023 to August 2024.
 
-This was during high school. I built GolfBud1, a golf-swing analysis app with a Flask API on AWS EC2, a Flutter front end, and Firebase storage. It reached over 5,000 downloads. We filed a provisional patent, and I co-authored a paper that I presented at CMCA 2023. On the ML side, I improved MediaPipe pose-estimation accuracy for swing analysis by 15% using SVMs and decision trees, tuned keypoint thresholds, and multi-angle detection.
+This was during high school. I built GolfBud, a golf-swing analysis app with a Flask API on AWS EC2, a Flutter front end, and Firebase storage. It reached over 5,000 downloads. We filed a provisional patent application, and I co-authored a paper that I presented at CMCA 2023. On the ML side, I improved MediaPipe pose-estimation accuracy for swing analysis by 15% using SVMs and decision trees, tuned keypoint thresholds, and multi-angle detection.
 
 **Coding Mind Academy.** Program developer, since August 2023.
 
@@ -47,7 +47,7 @@ A fully automated equity trading system that I built and operate on my own. It t
 
 - A watchdog-supervised engine with a crash-safe, idempotent fill ledger and continuous reconciliation of broker positions against the internal book. It runs on EC2 under PM2, and a Telegram bot handles alerts.
 - An independent clean-room backtester that re-implements the production engine and reconciles to it within 0.2 percentage points of CAGR, plus a monitor that compares live trading to the backtest. Removing an O(N²) hot path made backtests 11× faster.
-- An SEC EDGAR XBRL fundamentals pipeline with 96.5% coverage and 98.6% accuracy on an 8,419-event walk-forward holdout. It corrects vendor fundamentals in real time and checks for drift against each quarterly WRDS refresh.
+- An SEC EDGAR XBRL fundamentals pipeline with 96.5% coverage and 98.6% accuracy on an 8,419-event walk-forward holdout. It corrects vendor fundamentals in real time.
 - The research behind it covers a long-only momentum, value, and quality strategy on point-in-time, survivorship-bias-free S&P 1500 data with leakage controls. There are 60 numbered, logged experiments, including a long stretch with XGBoost rankers that the live strategy no longer uses.
 
 ### Trade capture system
