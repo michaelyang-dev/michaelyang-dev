@@ -1,120 +1,87 @@
-<div align="center">
+# Michael Yang
 
-# 👋 Hi, I'm **Michael Yang**
-🎓 *Computer Science & Data Science Student @ University of Wisconsin–Madison*  
-💻 *Developer | Researcher | Builder of AI-Driven Systems*  
+I'm a computer science and data science student at UW–Madison, graduating in May 2027. Most of what I build is trading infrastructure and backend systems: an exchange and matching engine in C++, an automated trading system that I run with my own money, and, last summer, product features for BlackRock's advisor-facing AI platform.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white&style=for-the-badge)](http://www.linkedin.com/in/michael-yang-78173726b)
-[![GitHub](https://img.shields.io/badge/GitHub-black?logo=github&logoColor=white&style=for-the-badge)](https://github.com/michaelyang-dev)
-[![Email](https://img.shields.io/badge/Email-D14836?logo=gmail&logoColor=white&style=for-the-badge)](mailto:michaelslyang@gmail.com)
+Before college I competed in USACO and reached the Platinum division, writing C++.
 
-</div>
+Email: michaelslyang@gmail.com
+LinkedIn: [michael-yang-78173726b](https://www.linkedin.com/in/michael-yang-78173726b)
 
----
+## Experience
 
-### 🚀 About Me  
-I'm passionate about building **intelligent, scalable systems** that bridge software engineering and machine learning.  
-Currently, I’m exploring the intersection of **AI, distributed systems, and financial technology**—from designing microservices for trading platforms to developing travel recommender systems and sports analysis tools.  
+**BlackRock, Aladdin (ChatBLK AI team).** Software engineering intern, June to August 2026, New York.
 
----
+I built and deployed three full-stack features on ChatBLK, BlackRock's conversational AI platform for financial advisors. The work ran across async Python services, gRPC/protobuf APIs, SQL pipelines on Snowflake, and React 18 front ends.
 
-### 🧠 Current Focus  
-- **Distributed Microservices Architecture** with Spring Boot, Spring Cloud & Kafka  
-- **AI for Sports & Mobility Analytics** (ML + Geospatial + Computer Vision)  
-- **Full-Stack Product Development** using React, Flask, and Next.js  
-- **Cloud Deployments & CI/CD** with Docker, Kubernetes, Jenkins, and AWS  
+- The backend for a portfolio-analysis agent: an async httpx client and tool handlers that map portfolio-analysis APIs to LLM function-calling schemas, plus modules for tax transitions, iBonds ladders, and RAG-based market insights.
+- A recommender that matches an advisor's client preferences to the best fit among 208 model portfolios. The scoring engine is deterministic Python and returns results almost instantly. The front end is a React/TypeScript quiz with weight sliders and hard filters, tested with Vitest.
+- A working voice agent that walks advisors through model portfolios, recommends a best fit, and writes custom rebalance commentary.
 
----
+**SoftCom Lab, Cal Poly Pomona.** Research intern, March 2023 to August 2024.
 
-### 💼 Experience
+This was during high school. I built GolfBud1, a golf-swing analysis app with a Flask API on AWS EC2, a Flutter front end, and Firebase storage. It reached over 5,000 downloads. We filed a provisional patent, and I co-authored a paper that I presented at CMCA 2023. On the ML side, I improved MediaPipe pose-estimation accuracy for swing analysis by 15% using SVMs and decision trees, tuned keypoint thresholds, and multi-angle detection.
 
-#### **Coding Mind Academy** — *Program Developer* (Aug 2023 – Present)  
-- Developed RESTful backend services in **Java + Spring Boot + MySQL** for the CM Base learning platform.  
-- Improved student project completion rates by **40%** through engaging programming lessons using Scratch, Minecraft Education, and Python.  
-- Collaborated in **Agile/SCRUM** teams to deliver new course content and digital learning features.
+**Coding Mind Academy.** Program developer, since August 2023.
 
-#### **SoftCom Lab, Cal Poly Pomona** — *Research Intern* (Mar 2023 – Aug 2024)  
-- Applied **machine learning** to optimize **MediaPipe** for golf-swing pose estimation, boosting precision by 15%.  
-- Developed **GolfBud1**, an AI-powered mobile golf analyzer with 5,000+ downloads; integrated **Flutter + Flask + AWS EC2 + Firebase** stack.  
-- Co-authored and presented a peer-reviewed paper at **CMCA 2023** on AI in sports technology.
+I wrote REST backend services in Java, Spring Boot, and MySQL for the CM Base learning platform, and taught programming with Scratch, Minecraft Education, and Python.
 
----
+## Projects
 
-### 🧩 Featured Projects
+### Low-latency exchange and matching engine
 
-#### 🏦 **Trading Capture System** *(May 2025 – Present)*  
-A scalable, distributed trade capture and validation system designed for investment bank middle-office operations.  
-- Architected microservices with **Spring Boot, Spring Cloud, Kafka, and QuickFIX/J** for **real-time FIX message ingestion** and validation.  
-- Implemented **Spring Data JPA** and **Hibernate** for trade persistence and audit tracking.  
-- Developed **event-driven workflows** using **Kafka topics** to asynchronously handle corrections, cancellations, and enrichment events.  
-- Integrated **Spring Security + OAuth 2.0** for secure API authentication and role-based access control.  
-- Deployed containerized services with **Docker, Kubernetes**, and automated CI/CD via **Jenkins pipelines**.  
-- Built a **React + Next.js + Redux dashboard** for real-time execution visualization, latency metrics, and trade lifecycle tracking.  
-- Achieved full fault tolerance, horizontal scalability, and dynamic resource allocation across environments.
+C++. May 2025 to present.
 
----
+A NASDAQ-style exchange built from scratch. It has a matching engine with auctions and pre-trade risk checks, an event-sourced journal, and spec-exact ITCH 5.0 and OUCH messaging over MoldUDP64 and SoupBinTCP-style transport with A/B feed arbitration. It publishes full-depth, top-of-book, snapshot, and drop-copy feeds.
 
-#### 🌍 **Travel Tracker** *(Apr 2025 – Present)*  
-A full-stack web app that enables users to securely log in, record trips, and visualize travel history through dynamic, interactive maps.  
-- Designed and implemented **Flask-based REST APIs** for travel logs, user profiles, and authentication (using **Flask-Login** and **Bcrypt**).  
-- Built a **PostgreSQL**-backed **SQLAlchemy** ORM schema with optimized indexing for large user datasets.  
-- Integrated **Leaflet.js + OpenStreetMap APIs** for real-time map rendering, trip clustering, and region-based visualization.  
-- Developed a **Travel Recommendation Engine** leveraging collaborative filtering, content-based embeddings, and **geospatial clustering (KMeans + cosine similarity)**.  
-- Deployed the recommender as a **Flask microservice** with `/recommend` endpoints responding in <200ms latency.  
-- Designed responsive UI and analytics dashboards for trip statistics, heatmaps, and personal insights.
+- The limit order book went from 310 ns to 42 ns median per message, about 18M messages per second on one core with real ITCH data. That took 14 measured experiments. I checked correctness against a reference implementation with differential fuzzing over more than 2 billion generated operations.
+- An AF_XDP kernel-bypass path, benchmarked against epoll, busy-polling, and io_uring across separate cloud instances using NIC hardware timestamps. Tick-to-trade came in at 14 µs p50 and 38 µs p99, which is 3.1× lower p99 than epoll. End to end it scales to 4.2M messages per second on 8 cores with NUMA-aware symbol sharding.
+- A deterministic simulation harness that puts time, network, and disk behind interfaces. A seeded single-threaded simulator injects packet loss, reordering, partitions, crashes, and disk stalls. It has found 23 bugs so far, and every one reproduces from its seed.
+- Hot-standby failover through state machine replication, with takeover under 50 ms and no lost or duplicated fills. The failover and session-recovery protocol is specified in TLA+, and the lock-free SPSC and MPSC queues are model-checked with GenMC.
+- A NanoLog-style binary logger that costs about 9 ns per call on the hot path. It writes compact binary entries and formats them offline.
 
----
+### ExeTrade
 
-#### 🏌️ **GolfBud1** *(Mar 2023 – Aug 2024)*  
-An intelligent golf swing analyzer that leverages AI and pose estimation to provide real-time feedback to users.  
-- Integrated **MediaPipe Pose**, **OpenCV**, and custom **SVM/Decision Tree** classifiers to improve swing form detection accuracy by 15%.  
-- Built a **Flask backend API** for motion data processing and linked it to a **Flutter mobile frontend**.  
-- Hosted backend inference services on **AWS EC2**, with real-time video storage on **Firebase**.  
-- Used **threshold-based keypoint tracking** and **multi-angle detection** to achieve multi-view precision.  
-- Gained over **5,000 downloads** on app stores; secured a **provisional patent** for the motion feedback algorithm.  
-- Research published and presented at **CMCA 2023** on AI-driven sports analytics.
+Python, pandas, NumPy, asyncio, ib_insync, XGBoost, AWS EC2. February 2026 to present.
 
----
+A fully automated equity trading system that I built and operate on my own. It trades real capital on Interactive Brokers.
 
-#### 🧮 **Apex Cluster** *(2022 – 2023)*  
-A high school capstone project using clustering algorithms to **optimally group students** based on their interests for a presentation event.  
-- Designed and implemented a **K-means + preference weighting algorithm** to classify over **300+ students** into sessions aligned with their top interests.  
-- Built data pipelines in **Python (NumPy + pandas)** for processing survey responses and converting them into normalized vector representations.  
-- Integrated an **iterative optimization** layer to minimize overlap between conflicting interest groups and maximize satisfaction scores.  
-- 📊 **Visualized cluster distribution and satisfaction rates using Matplotlib + Seaborn dashboards.**  
-- Used by the **school’s administration team** to schedule viewing sessions — improving student preference match rate by **35%** compared to random assignment.  
-- Sparked further interest in applied machine learning for event optimization and education analytics.
+- A watchdog-supervised engine with a crash-safe, idempotent fill ledger and continuous reconciliation of broker positions against the internal book. It runs on EC2 under PM2, and a Telegram bot handles alerts.
+- An independent clean-room backtester that re-implements the production engine and reconciles to it within 0.2 percentage points of CAGR, plus a monitor that compares live trading to the backtest. Removing an O(N²) hot path made backtests 11× faster.
+- An SEC EDGAR XBRL fundamentals pipeline with 96.5% coverage and 98.6% accuracy on an 8,419-event walk-forward holdout. It corrects vendor fundamentals in real time and checks for drift against each quarterly WRDS refresh.
+- The research behind it covers a long-only momentum, value, and quality strategy on point-in-time, survivorship-bias-free S&P 1500 data with leakage controls. There are 60 numbered, logged experiments, including a long stretch with XGBoost rankers that the live strategy no longer uses.
 
----
+### Trade capture system
 
-### 🛠️ Skills
-**Languages:** Java, Python, C/C++, C#, Dart, JavaScript, TypeScript, SQL, Kotlin  
-**Frameworks:** Spring Boot, Spring Cloud, Flask, React, Next.js, Flutter, QuickFIX/J  
-**Tools & Cloud:** AWS, Docker, Kubernetes, Jenkins, MySQL, Git, Linux  
-**Specialties:** RESTful APIs, ML Integration, Microservices, Distributed Systems, OAuth 2.0, Kafka Streaming  
+Java, Spring Boot, Kafka, QuickFIX/J. May 2025 to present. Built with a team of 8 in Agile sprints.
 
----
+An event-driven microservices system for trade capture, corrections, and cancellations with real-time validation, modeled on an investment bank's middle-office workflow.
 
-### 🌱 Fun Fact  
-I love blending **AI, data, and design** into meaningful products — whether it’s a golf analyzer, a travel recommender, or a trading engine. When I’m not coding, you’ll probably find me on the golf course ⛳.
+- A FIX execution engine on QuickFIX/J. After profiling showed database writes were the bottleneck, batching JPA writes and tuning Kafka partitioning raised throughput 3×, from 2,000 to 6,000 messages per second.
+- Services sit behind OAuth 2.0 with audit logging and deploy on Kubernetes through Jenkins CI/CD.
+- A React and Next.js dashboard for watching trades in real time.
 
----
+### Travel Tracker
 
-### 📫 Let's Connect  
+Flask, PostgreSQL, SQLAlchemy, Leaflet. Started April 2025.
 
-<p align="center">
-<a href="mailto:michaelslyang@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
-<a href="https://www.linkedin.com/in/michael-yang-78173726b"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-<a href="https://github.com/michaelyang-dev"><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/></a>
-</p>
+A web app for logging trips and viewing travel history on interactive maps. It includes a small recommendation service that combines collaborative filtering, content embeddings, and geospatial clustering, and answers in under 200 ms.
 
----
+### Apex Cluster
 
-<div align="center">
+Python. 2022 to 2023.
 
-<!--
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=SLYmike2006&layout=compact&theme=tokyonight)
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SLYmike2006&show_icons=true&theme=tokyonight)
--->
+My high school capstone. It grouped more than 300 students into presentation sessions based on their interests, using K-means with preference weighting. The school's administration used it for scheduling, and it matched student preferences 35% better than random assignment.
 
-</div>
+## Skills
+
+Languages: Python, C++, Java, TypeScript, JavaScript, SQL, Dart
+
+Backend and infrastructure: Spring Boot, Kafka, gRPC/Protobuf, Flask, asyncio, QuickFIX/J, OAuth 2.0, Docker, Kubernetes, Jenkins, AWS, Linux, Git, MySQL, PostgreSQL, Snowflake
+
+Front end: React, Redux, Next.js, Flutter
+
+Data and ML: pandas, NumPy, XGBoost, LLM function calling, RAG and embedding search
+
+## Contact
+
+Not everything above is public. If you'd like to see something that isn't, or just want to talk, email me at michaelslyang@gmail.com. When I'm not at a keyboard I'm usually on a golf course.
